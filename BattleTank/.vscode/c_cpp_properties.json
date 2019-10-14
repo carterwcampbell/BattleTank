@@ -4,6 +4,7 @@
             "name": "UnrealEngine",
             "includePath": [
                 "C:\\Program Files (x86)\\Common Files\\UE_4.22\\Engine\\Source",
+                "C:\\Users\\Carter Campbell\\UnrealClass\\BattleTank\\BattleTank\\Intermediate\\Build\\Win64\\UE4Editor\\Inc\\BattleTank",
                 "C:\\Users\\Carter Campbell\\UnrealClass\\BattleTank\\BattleTank\\Source",
                 "C:\\Users\\Carter Campbell\\UnrealClass\\BattleTank\\BattleTank\\Source\\BattleTank",
                 "C:\\Program Files (x86)\\Common Files\\UE_4.22\\Engine\\Source\\Runtime",
