@@ -4,6 +4,7 @@
 
 #include "Tank.h"
 #include "GameFramework/PlayerController.h"
+#include "Engine/World.h"
 #include "TankPlayerController.generated.h" // Must be the last include
 
 /**
@@ -27,9 +28,13 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 
 		bool GetLookDirection(FVector2D ScreenLocation, FVector &LookDirection) const;
 
+		bool GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const;
+
 	private:
 		UPROPERTY(EditAnywhere)
 		float CrossHairXLocation = 0.5;
 		UPROPERTY(EditAnywhere)
 		float CrossHairYLocation = 0.333333;
+		UPROPERTY(EditAnywhere)
+		float LineTraceRange = 1000000;
 };
