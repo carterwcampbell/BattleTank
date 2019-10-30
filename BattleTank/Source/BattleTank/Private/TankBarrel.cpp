@@ -5,5 +5,6 @@
 
 void UTankBarrel::ElevateBarrel(float DegreesPerSecond)
 {
-    UE_LOG(LogTemp, Warning, TEXT("Barrel-Elevate() Called at speed %f"), DegreesPerSecond)
+    // auto Time = GetWorld()->GetTimeSeconds();
+    // UE_LOG(LogTemp, Warning, TEXT("%f Barrel-Elevate() Called at speed %f"), Time, DegreesPerSecond)
 }
