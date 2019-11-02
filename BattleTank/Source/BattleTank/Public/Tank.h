@@ -3,10 +3,12 @@
 #pragma once
 
 #include "GameFramework/Pawn.h"
+#include "Projectile.h"
 #include "Tank.generated.h"
 
 class UTankBarrel;
 class UTankAimingComponent;
+class AProjectile;
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -39,6 +41,11 @@ class BATTLETANK_API ATank : public APawn
 		virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
 		UPROPERTY(EditAnywhere, Category = Firing)
-		float LaunchSpeed = 100000; // TODO Find sensible default value
+		float LaunchSpeed = 4000.0; // TODO Find sensible default value
+
+		UPROPERTY(EditAnywhere, Category = Setup)
+		TSubclassOf<AProjectile> ProjectileBlueprint;
+
+		UTankBarrel* Barrel = nullptr;
 
 };
