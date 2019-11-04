@@ -40,15 +40,18 @@ class BATTLETANK_API ATank : public APawn
 		// Called to bind functionality to input
 		virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
-		UPROPERTY(EditAnywhere, Category = Firing)
-		float LaunchSpeed = 4000.0; // TODO Find sensible default value
+		UPROPERTY(EditDefaultsOnly, Category = Firing)
+		float LaunchSpeed = 4000.0;
 
-		UPROPERTY(EditAnywhere, Category = Setup)
+		UPROPERTY(EditDefaultsOnly, Category = Setup)
+		float ReloadTimeInSeconds = 3.0;
+
+		UPROPERTY(EditDefaultsOnly, Category = Setup)
 		TSubclassOf<AProjectile> ProjectileBlueprint;
 
 		UTankBarrel* Barrel = nullptr;
 
-		float ReloadTimeInSeconds = 3.0;
+		
 
 		double LastFireTime = 0.0;
 };
