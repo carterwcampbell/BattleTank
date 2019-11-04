@@ -48,4 +48,7 @@ class BATTLETANK_API ATank : public APawn
 
 		UTankBarrel* Barrel = nullptr;
 
+		float ReloadTimeInSeconds = 3.0;
+
+		double LastFireTime = 0.0;
 };
