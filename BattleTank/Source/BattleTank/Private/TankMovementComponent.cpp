@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright CWC Games
 
 
 #include "BattleTank.h"
@@ -14,7 +14,6 @@ void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* 
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
-    
     LeftTrack->SetThrottle(Throw);
     RightTrack->SetThrottle(Throw);
 }
@@ -22,9 +21,14 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
 {
     // No need to call Super, we are replacing functionality
-    auto TankName = GetOwner()->GetName();
-    auto MoveVelocityString = MoveVelocity.ToString();
-    UE_LOG(LogTemp, Warning, TEXT("%s vectoring to %s"), *TankName, *MoveVelocityString);
+    auto AIForwardIntention = MoveVelocity.GetSafeNormal();
+    auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+
+    auto ForwardThrow = FVector::DotProduct(TankForward, AIForwardIntention);
+    IntendMoveForward(ForwardThrow);
+
+    auto RightThrow = FVector::CrossProduct(TankForward, AIForwardIntention).Z;
+    IntendTurnRight(RightThrow);
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
