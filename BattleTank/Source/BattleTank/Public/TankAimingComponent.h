@@ -38,7 +38,7 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 		// Called when the game starts
 		virtual void BeginPlay() override;
 
-		void AimAt(FVector HitLocation, float LaunchSpeed);
+		void AimAt(FVector HitLocation);
 
 	protected:
 		UPROPERTY(BlueprintReadOnly, Category = "State")
@@ -49,4 +49,7 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 		UTankBarrel* Barrel = nullptr;
 
 		void MoveBarrel(FVector AimDirection);
+
+		UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		float LaunchSpeed = 4000.0;
 };
