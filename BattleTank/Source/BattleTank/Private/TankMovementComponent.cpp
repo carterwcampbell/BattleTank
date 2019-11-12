@@ -33,7 +33,6 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
-    UE_LOG(LogTemp, Warning, TEXT("Intended Move Forward Throw: %f"), Throw);
     LeftTrack->SetThrottle(-Throw);
     RightTrack->SetThrottle(Throw);
 }

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright CWC Games
 
 #pragma once
 
@@ -19,13 +19,7 @@ class BATTLETANK_API ATank : public APawn
 	public:
 		void AimAt(FVector HitLocation);
 
-		UFUNCTION(BlueprintCallable, Category = Setup)
-		void SetBarrelReference(UTankBarrel *BarrelToSet);
-
-		UFUNCTION(BlueprintCallable, Category = Setup)
-		void SetTurretReference(UTankTurret *TurretToSet);
-
-		UFUNCTION(BlueprintCallable, Category = Firing)
+		UFUNCTION(BlueprintCallable, Category = "Firing")
 		void Fire();
 
 	protected:
@@ -42,21 +36,16 @@ class BATTLETANK_API ATank : public APawn
 		// Called when the game starts or when spawned
 		virtual void BeginPlay() override;
 
-		// Called to bind functionality to input
-		virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
-
-		UPROPERTY(EditDefaultsOnly, Category = Firing)
+		UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		float LaunchSpeed = 4000.0;
 
-		UPROPERTY(EditDefaultsOnly, Category = Setup)
+		UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		float ReloadTimeInSeconds = 3.0;
 
-		UPROPERTY(EditDefaultsOnly, Category = Setup)
+		UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		TSubclassOf<AProjectile> ProjectileBlueprint;
 
 		UTankBarrel* Barrel = nullptr;
-
-		
 
 		double LastFireTime = 0.0;
 };
