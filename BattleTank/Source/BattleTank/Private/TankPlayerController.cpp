@@ -1,7 +1,7 @@
 // Copyright CWC Games
 
-#include "BattleTank.h"
 #include "TankPlayerController.h"
+#include "BattleTank.h"
 #include "TankAimingComponent.h"
 
 
@@ -21,6 +21,7 @@ void ATankPlayerController::BeginPlay()
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
+	if (!GetPawn()) { return; } // If not possessing pawn
 	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(AimingComponent)) { return; }
 

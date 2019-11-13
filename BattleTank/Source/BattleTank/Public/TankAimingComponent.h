@@ -46,13 +46,17 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 
 	protected:
 		UPROPERTY(BlueprintReadOnly, Category = "State")
-		EFiringState FiringState = EFiringState::Aiming;
+		EFiringState FiringState = EFiringState::Reloading;
 	
 	private:
 		UTankTurret* Turret = nullptr;
 		UTankBarrel* Barrel = nullptr;
 
+		virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
 		void MoveBarrel(FVector AimDirection);
+
+		bool IsBarrelMoving();
 
 		UPROPERTY(EditDefaultsOnly, Category = "Firing")
 		float LaunchSpeed = 4000.0;
@@ -64,4 +68,5 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 		TSubclassOf<AProjectile> ProjectileBlueprint;
 
 		double LastFireTime = 0.0;
+		FVector AimDirection;
 };

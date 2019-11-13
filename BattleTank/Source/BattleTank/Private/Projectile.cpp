@@ -1,8 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
-#include "BattleTank.h"
 #include "Projectile.h"
+#include "BattleTank.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -30,8 +29,6 @@ void AProjectile::Tick(float DeltaTime)
 
 void AProjectile::LaunchProjectile(float Speed)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Projectile Launched at: %f"), Speed);
-
 	ProjectileMovement->SetVelocityInLocalSpace(FVector::ForwardVector * Speed);
 	ProjectileMovement->Activate();
 }

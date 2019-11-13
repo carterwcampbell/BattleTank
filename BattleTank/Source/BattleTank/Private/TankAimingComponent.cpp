@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BattleTank.h"
 #include "TankAimingComponent.h"
+#include "BattleTank.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
 #include "Projectile.h"
@@ -17,6 +17,22 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
+void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
+{
+	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
+	{
+		FiringState = EFiringState::Reloading;
+	}
+	else if (IsBarrelMoving())
+	{
+		FiringState = EFiringState::Aiming;
+	}
+	else
+	{
+		FiringState = EFiringState::Locked;
+	}
+}
+
 void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
 {
 	Barrel = BarrelToSet;
@@ -28,8 +44,16 @@ void UTankAimingComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+	// So that the first initial reload is after initial reload
+	LastFireTime = FPlatformTime::Seconds();
 	
+}
+
+bool UTankAimingComponent::IsBarrelMoving()
+{
+	if (!ensure(Barrel)) { return false; }
+	auto BarrelForward = Barrel->GetForwardVector();
+	return !BarrelForward.Equals(AimDirection, 0.01);
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation)
@@ -51,7 +75,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 		);
 	if (bAimSolution)
 	{
-		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrel(AimDirection);
 		auto Time = GetWorld()->GetTimeSeconds();
 	}
@@ -70,10 +94,11 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 
 void UTankAimingComponent::Fire()
 {
-	if (!ensure(Barrel && ProjectileBlueprint)) { return; }
 	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
-	if (isReloaded)
+	if (FiringState != EFiringState::Reloading)
 	{
+		if (!ensure(Barrel)) { return; }
+		if (!ensure(ProjectileBlueprint)) { return; }
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
 			ProjectileBlueprint,
 			Barrel->GetSocketLocation(FName("Projectile")),

@@ -1,9 +1,8 @@
 // Copyright CWC Games
 
-
+#include "TankMovementComponent.h"
 #include "BattleTank.h"
 #include "TankTrack.h"
-#include "TankMovementComponent.h"
 
 void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet)
 {
