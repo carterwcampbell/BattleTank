@@ -48,7 +48,7 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 		EFiringState GetFiringState() const;
 
 		UFUNCTION(BlueprintCallable, Category = "Firing")
-		int GetRoundsLeft() const;
+		int32 GetRoundsLeft() const;
 
 	protected:
 		UPROPERTY(BlueprintReadOnly, Category = "State")
@@ -75,5 +75,7 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 
 		double LastFireTime = 0.0;
 		FVector AimDirection;
-		int RoundsLeft = 20;
+
+		UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		int32 RoundsLeft = 20;
 };
