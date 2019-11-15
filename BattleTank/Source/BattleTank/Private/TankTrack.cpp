@@ -1,9 +1,14 @@
-#include "BattleTank.h"
 #include "TankTrack.h"
+//#include "Kismet/GameplayStatics.h"
+#include "BattleTank.h"
 
 UTankTrack::UTankTrack()
 {
 	PrimaryComponentTick.bCanEverTick = true;
+	// CollisionMesh = CreateDefaultSubobject<UStaticMeshComponent>(FName("Collision Mesh"));
+	// SetRootComponent(CollisionMesh);
+	// CollisionMesh->SetNotifyRigidBodyCollision(true);
+	// CollisionMesh->SetVisibility(false);
 }
 
 void UTankTrack::BeginPlay()
